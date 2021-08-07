@@ -1,0 +1,127 @@
+Sub RBNT()
+'
+' Keyboard Shortcut: Ctrl+r
+'
+    Selection.Copy
+    Application.CutCopyMode = False
+    Sheets("Sample sheet").Copy After:=Sheets(1)
+    Sheets("Sample sheet").Select
+    Cells.Select
+    ActiveWorkbook.Worksheets("Sample sheet").Sort.SortFields.Clear
+    ActiveWorkbook.Worksheets("Sample sheet").Sort.SortFields.Add2 Key:=Range( _
+        "T2:T295"), SortOn:=xlSortOnValues, Order:=xlAscending, DataOption:= _
+        xlSortNormal
+    ActiveWorkbook.Worksheets("Sample sheet").Sort.SortFields.Add2 Key:=Range( _
+        "M2:M295"), SortOn:=xlSortOnValues, Order:=xlAscending, DataOption:= _
+        xlSortNormal
+    With ActiveWorkbook.Worksheets("Sample sheet").Sort
+        .SetRange Range("A1:AA295")
+        .Header = xlYes
+        .MatchCase = False
+        .Orientation = xlTopToBottom
+        .SortMethod = xlPinYin
+        .Apply
+    End With
+    ActiveSheet.Range("$A$1:$AA$296").RemoveDuplicates Columns:=Array(14, 20), _
+        Header:=xlYes
+    ActiveWindow.SmallScroll Down:=-33
+    Range("H2").Select
+    Sheets("Sample sheet (2)").Select
+    ActiveWindow.SmallScroll Down:=-6
+    Cells.Select
+    Sheets.Add
+    ActiveWorkbook.PivotCaches.Create(SourceType:=xlDatabase, SourceData:= _
+        "Sample sheet (2)!R1C1:R65536C27", Version:=xlPivotTableVersion10). _
+        CreatePivotTable TableDestination:="Sheet2!R3C1", TableName:="PivotTable1" _
+        , DefaultVersion:=xlPivotTableVersion10
+    Sheets("Sheet2").Select
+    Cells(3, 1).Select
+    With ActiveSheet.PivotTables("PivotTable1").PivotFields("Sub A/c")
+        .Orientation = xlRowField
+        .Position = 1
+    End With
+    ActiveSheet.PivotTables("PivotTable1").AddDataField ActiveSheet.PivotTables( _
+        "PivotTable1").PivotFields("TD_DOC_AMT"), "Sum of TD_DOC_AMT", xlSum
+    With ActiveSheet.PivotTables("PivotTable1").PivotFields("Payee")
+        .Orientation = xlRowField
+        .Position = 2
+    End With
+    With ActiveSheet.PivotTables("PivotTable1").PivotFields("Payee")
+        .Orientation = xlRowField
+        .Position = 1
+    End With
+    Cells.Select
+    Selection.Copy
+    Sheets.Add After:=ActiveSheet
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Cells.Select
+    Cells.EntireColumn.AutoFit
+    Application.CutCopyMode = False
+    Selection.AutoFilter
+    ActiveSheet.Range("$A$3:$G$157").AutoFilter Field:=1, Criteria1:= _
+        "<>*Total*", Operator:=xlAnd
+    ActiveWindow.SmallScroll Down:=-30
+    Range("C5").Select
+    Range(Selection, Selection.End(xlDown)).Select
+    Selection.Copy
+    Sheets("Sample sheet").Select
+    ActiveWindow.SmallScroll Down:=-42
+    Range("L2").Select
+    ActiveSheet.Paste
+    ActiveWindow.SmallScroll Down:=90
+    ActiveWindow.ScrollColumn = 2
+    ActiveWindow.ScrollColumn = 1
+    ActiveWindow.SmallScroll Down:=-132
+    Columns("A:A").Select
+    ActiveWindow.ScrollColumn = 8
+    Range("A:A,O:O").Select
+    Range("O1").Activate
+    Selection.Replace What:="RE_", Replacement:="'", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False
+    Selection.Replace What:="RE_", Replacement:="'", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False
+    Range("P8").Select
+    ActiveWindow.ScrollColumn = 7
+    ActiveWindow.SmallScroll Down:=-9
+    Cells.Select
+    Application.CutCopyMode = False
+    ActiveWorkbook.Worksheets("Sample sheet").Sort.SortFields.Clear
+    ActiveWorkbook.Worksheets("Sample sheet").Sort.SortFields.Add2 Key:=Range( _
+        "A2:A296"), SortOn:=xlSortOnValues, Order:=xlAscending, DataOption:= _
+        xlSortNormal
+    ActiveWorkbook.Worksheets("Sample sheet").Sort.SortFields.Add2 Key:=Range( _
+        "M2:M296"), SortOn:=xlSortOnValues, Order:=xlAscending, DataOption:= _
+        xlSortNormal
+    With ActiveWorkbook.Worksheets("Sample sheet").Sort
+        .SetRange Range("A1:AA296")
+        .Header = xlYes
+        .MatchCase = False
+        .Orientation = xlTopToBottom
+        .SortMethod = xlPinYin
+        .Apply
+    End With
+    Range("H7").Select
+    ActiveWindow.SmallScroll Down:=1
+    Range("H12").Select
+    Sheets("Sheet2").Select
+    Sheets("Sheet2").Move After:=Sheets(4)
+    Sheets("Sheet3").Select
+    Sheets("Sheet2").Select
+    Range("A14").Select
+    ActiveSheet.PivotTables("PivotTable1").PivotFields("Payee").Orientation = _
+        xlHidden
+    With ActiveSheet.PivotTables("PivotTable1").PivotFields("Main A/c")
+        .Orientation = xlField
+        .Position = 2
+    End With
+    Range("E11").Select
+    Sheets("Sample sheet").Select
+    Range("H9").Select
+    ActiveWindow.ScrollColumn = 2
+    ActiveWindow.ScrollColumn = 3
+    ActiveWindow.ScrollColumn = 4
+    ActiveWindow.ScrollColumn = 1
+End Sub
